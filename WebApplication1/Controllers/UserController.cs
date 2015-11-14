@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using DataAccess;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,19 @@ namespace Colabora.Controllers
 
         public ActionResult Register() 
         {
-            return View();
+            List<GrupoTrabajo> grupos = Singleton.GetInstance().GruposTrabajo;
+            if (grupos != null)
+            {
+                ViewBag.Grupos = grupos.Select(g => new SelectListItem()
+                {
+                    Text = g.Nombre,
+                    Value = g.ID
+                }).ToList();
+            }
+                return View();
         }
 
-        public ActionResult Register(Cliente user)
+        public ActionResult RegisterUser(Cliente user)
         {
             return View();
         }

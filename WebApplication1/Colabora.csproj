@@ -231,6 +231,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess1\DataAccess.csproj">
+      <Project>{5f5f6c20-a04b-4e5d-96ea-36bd0f78ed8d}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dominio\Logic.csproj">
       <Project>{a604f39c-9a1f-451b-b873-3a828b1c9bf2}</Project>
       <Name>Logic</Name>

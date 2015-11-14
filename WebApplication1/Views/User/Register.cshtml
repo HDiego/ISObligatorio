@@ -4,19 +4,35 @@
     Layout = "RegisterLayout";
 }
 
-<h2>Register</h2>
-<hr />z
+<h2>Registro</h2>
+<hr />
 
 <div class="form-signin">
-    @*@Html.DisplayFor(m => m.Email)*@
     <div class="form-control">
-        @using (Html.BeginForm("LoginUser", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        @using (Html.BeginForm("RegisterUser", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
             <center class="loginMargen">
-                <h2>Bienvenido a COLABORA</h2>
-                <hr />
-                <h4>Porfavor identifíquese para acceder</h4><br />
 
+                @Html.LabelFor(m => m.ID, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ID, "", new { @class = "text-danger" })
+
+                <br />
+                @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+
+                <br />
+                @Html.LabelFor(m => m.Apellido, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Apellido, "", new { @class = "text-danger" })
+
+                <br />
+                @Html.LabelFor(m => m.Direccion, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+
+                <br />
                 @Html.LabelFor(m => m.Email, new { @class = "form-label" })
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
@@ -27,13 +43,19 @@
                 @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <hr />
-                <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block" />
-                <hr />
+                <br />
+                @Html.Label("Confirmar contraseña", new { @class = "form-label" })
+                @Html.Password("Confirmar", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="row">
-                    <p class="text-center">No tienes una cuenta de Colabora?@Html.ActionLink("Registrarse", "Register", null, new { @class = "btn btn-link btn-large" })</p>
-                </div>
+                <br />
+                @Html.LabelFor(m => m.GrupoTrabajo, new { @class = "form-label" })
+                @Html.DropDownList("GrupoTrabajo", ViewBag.Grupos as IEnumerable<SelectListItem>,new { @class = "form-label" })
+                @Html.ValidationMessageFor(m => m.GrupoTrabajo, "", new { @class = "text-danger" })
+                <hr />
+                <input type="submit" value="Registrarse" class="btn btn-primary btn-lg btn-block" />
+                
             </center>
         }
 
