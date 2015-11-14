@@ -17,10 +17,19 @@ namespace Colabora.Controllers
             return View();
         }
 
-        public ActionResult LoginUser(User user)
+        public ActionResult LoginUser(Cliente user)
         {
             return View();
         }
 
+        public ActionResult Register() 
+        {
+            return View();
+        }
+
+        public ActionResult Register(Cliente user)
+        {
+            return View();
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess1.Entities
+namespace Logic
 {
     public class Cliente
     {
@@ -14,13 +14,25 @@ namespace DataAccess1.Entities
         public string Direccion { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
-        public DateTime PeriodoDesde { get; set; }
-        public DateTime PeriodoHasta { get; set; }
+        public List<Tuple<DateTime, DateTime, string>> PeriodosMembresia { get; set; }
         public GrupoTrabajo GrupoTrabajo { get; set; }
-        public string Membresia { get; set; }
+        public List<Membresia> Membresia { get; set; }
 
         public Cliente() 
         {
+        }
+
+        public Cliente(string nombre, string contraseña, string email, string apellido)
+        {
+            this.Email = email;
+            this.Nombre = nombre;
+            this.Contraseña = contraseña;
+            this.Apellido = apellido;
+        }
+
+        public Cliente(string email)
+        {
+            this.Email = email;
         }
     }
 }

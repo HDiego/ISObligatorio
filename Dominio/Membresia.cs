@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess1.Entities
+namespace Logic
 {
-    public class Reserva
+    public class Membresia
     {
         public DateTime Desde { get; set; }
         public DateTime Hasta { get; set; }
-        public Cliente Cliente { get; set; }
-        public Sala Sala { get; set; }
-        
-        public Reserva() 
-        {
-        }
+        public bool EsTotal { get; set; }
     }
 }
