@@ -1,9 +1,11 @@
-﻿using Logic;
+﻿using DataAccess;
+using Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Colabora.Models;
 
 namespace Colabora.Controllers
 {
@@ -14,12 +16,27 @@ namespace Colabora.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            LoginViewModel model = new LoginViewModel();
+            return View(model);
         }
 
-        public ActionResult LoginUser(Cliente user)
+        public ActionResult LoginUser(LoginViewModel usuario)
         {
-            return View();
+            if(usuario.Password == null || usuario.UserName == null)
+            {
+                return View("Login", usuario);
+            }
+            else
+            {
+                Singleton BD = Singleton.GetInstance();
+                Cliente logeado = BD.ValidLogIn(usuario.UserName, usuario.Password);
+                if (logeado == null)
+                {
+                    ModelState.AddModelError(string.Empty, "El nombre de usuario o contraseña son incorrectos");
+                    return View("Login", usuario);
+                }
+                return View("Index");
+            }
         }
 
         public ActionResult Register() 

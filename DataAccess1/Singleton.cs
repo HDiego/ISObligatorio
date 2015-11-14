@@ -64,6 +64,17 @@ namespace DataAccess
             }
             return false;
         }
+
+        public Cliente ValidLogIn(string email, string contraseña)
+        {
+            Cliente retorno = null;
+            foreach(Cliente cli in Clientes)
+            {
+                if (cli.Email.Equals(email) && cli.Contraseña.Equals(contraseña))
+                    retorno = cli;
+            }
+            return retorno;
+        }
         #endregion
 
         #region Salas

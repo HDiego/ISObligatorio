@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using WebApplication1.Models;
+using Colabora.Models;
 
-namespace WebApplication1.Controllers
+namespace Colabora.Controllers
 {
     [Authorize]
     public class AccountController : Controller
