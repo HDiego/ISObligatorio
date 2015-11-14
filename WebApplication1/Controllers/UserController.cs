@@ -13,6 +13,10 @@ namespace Colabora.Controllers
     {
         //
         // GET: /User/
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         public ActionResult Login()
         {
@@ -35,10 +39,17 @@ namespace Colabora.Controllers
                     ModelState.AddModelError(string.Empty, "El nombre de usuario o contraseña son incorrectos");
                     return View("Login", usuario);
                 }
+                Session["user"] = logeado;
                 return View("Index");
             }
         }
 
+        public ActionResult LogOut()
+        {
+            Session["user"] = null;
+            LoginViewModel model = new LoginViewModel();
+            return View("Login", model);
+        }
         public ActionResult Register() 
         {
             return View();
