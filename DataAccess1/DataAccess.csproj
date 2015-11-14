@@ -39,6 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Cliente.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\FacturaRegistro.cs" />
+    <Compile Include="Entities\FacturaReserva.cs" />
+    <Compile Include="Entities\GrupoTrabajo.cs" />
+    <Compile Include="Entities\Reserva.cs" />
+    <Compile Include="Entities\Sala.cs" />
     <Compile Include="Singleton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
