@@ -1,0 +1,41 @@
+﻿@model Logic.Cliente
+@{
+    ViewBag.Title = "Register";
+    Layout = "RegisterLayout";
+}
+
+<h2>Register</h2>
+<hr />z
+
+<div class="form-signin">
+    @*@Html.DisplayFor(m => m.Email)*@
+    <div class="form-control">
+        @using (Html.BeginForm("LoginUser", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {
+            <center class="loginMargen">
+                <h2>Bienvenido a COLABORA</h2>
+                <hr />
+                <h4>Porfavor identifíquese para acceder</h4><br />
+
+                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                <br />
+                @Html.LabelFor(m => m.Contraseña, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <hr />
+                <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block" />
+                <hr />
+
+                <div class="row">
+                    <p class="text-center">No tienes una cuenta de Colabora?@Html.ActionLink("Registrarse", "Register", null, new { @class = "btn btn-link btn-large" })</p>
+                </div>
+            </center>
+        }
+
+    </div>
+</div>

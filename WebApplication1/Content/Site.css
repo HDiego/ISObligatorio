@@ -41,3 +41,7 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.loginMargen 
+{
+    margin-top:5%
+}
