@@ -25,6 +25,31 @@ namespace Colabora.Controllers
 
         public ActionResult Register() 
         {
+            CargarViewBags();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(Cliente user, string confirmarContra, string idGrupoTrabajo)
+        {
+            if (ModelState.IsValid) 
+            {
+                if(user.Contraseña.Equals(confirmarContra))
+                {
+                    if (idGrupoTrabajo != null) 
+                    {
+                        user.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
+                    }
+                    Singleton.GetInstance().Clientes.Add(user);
+                    return RedirectToAction("Login");
+                }
+            }
+            CargarViewBags();
+            return View(user);
+        }
+
+        public void CargarViewBags() 
+        {
             List<GrupoTrabajo> grupos = Singleton.GetInstance().GruposTrabajo;
             if (grupos != null)
             {
@@ -34,12 +59,10 @@ namespace Colabora.Controllers
                     Value = g.ID
                 }).ToList();
             }
-                return View();
-        }
-
-        public ActionResult RegisterUser(Cliente user)
-        {
-            return View();
+            else
+            {
+                ViewBag.Grupos = new List<SelectListItem>();
+            }
         }
     }
 }

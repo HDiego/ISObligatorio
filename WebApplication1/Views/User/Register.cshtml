@@ -1,7 +1,7 @@
 ﻿@model Logic.Cliente
 @{
     ViewBag.Title = "Register";
-    Layout = "RegisterLayout";
+    Layout = "RegisterLayout.cshtml";
 }
 
 <h2>Registro</h2>
@@ -9,55 +9,104 @@
 
 <div class="form-signin">
     <div class="form-control">
-        @using (Html.BeginForm("RegisterUser", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        @using (Html.BeginForm("Register", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
             <center class="loginMargen">
-
-                @Html.LabelFor(m => m.ID, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.ID, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.LabelFor(m => m.Apellido, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Apellido, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.LabelFor(m => m.Direccion, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.LabelFor(m => m.Email, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.LabelFor(m => m.Contraseña, new { @class = "form-label" })
-                @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.Label("Confirmar contraseña", new { @class = "form-label" })
-                @Html.Password("Confirmar", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                <br />
-                @Html.LabelFor(m => m.GrupoTrabajo, new { @class = "form-label" })
-                @Html.DropDownList("GrupoTrabajo", ViewBag.Grupos as IEnumerable<SelectListItem>,new { @class = "form-label" })
-                @Html.ValidationMessageFor(m => m.GrupoTrabajo, "", new { @class = "text-danger" })
+                <table style="width:60%">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <center>
+                                    @Html.LabelFor(m => m.ID, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ID, "", new { @class = "text-danger" })
+                                    <br />
+                                    </center>
+</td>
+                            <td></td>
+                            <td>
+                                <center>
+                                    @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                                    <br />
+                                    </center>
+</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <center>
+                                    @Html.LabelFor(m => m.Apellido, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Apellido, "", new { @class = "text-danger" })
+                                    <br />
+                                    </center>
+</td>
+                            <td></td>
+                            <td>
+                                <center>
+                                    @Html.LabelFor(m => m.Direccion, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+                                    <br />
+                                    </center>
+</td>
+</tr>
+                        <tr>
+                            <td>
+                                <center>
+                                    @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                    <br />
+                                    </center>
+</td>
+                            <td></td>
+                            <td>
+                                <center>
+                                    @Html.LabelFor(m => m.Contraseña, new { @class = "form-label" })
+                                    @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
+                                    <br />
+                                    </center>
+</td>
+</tr>
+                        <tr>
+                            <td>
+                                <center>
+                                    @Html.Label("Confirmar contraseña", null, new { @class = "form-label" })
+                                    @Html.Password("confirmarContra", null, new { @class = "form-control" })
+                                    <br />
+                                    </center>
+</td>
+                            <td></td>
+                            <td>
+                                <center>
+                                    @Html.Label("Grupo de trabajo", null, new { @class = "form-label" })
+                                    @Html.DropDownList("GrupoTrabajo", ViewBag.Grupos as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                    <br />
+                                    </center>
+</td>
+</tr>
+</tbody>
+                </table>
                 <hr />
-                <input type="submit" value="Registrarse" class="btn btn-primary btn-lg btn-block" />
+                <input type="submit" value="Registrarse" onclick="VerificarContraseña()" class="btn btn-primary btn-lg btn-block" />
                 
             </center>
         }
 
     </div>
 </div>
+
+<script>
+    function VerificarContraseña() {
+        var contra = $('#Contraseña').val();
+        var confirmarContra = $('#confirmarContra').val();
+
+        if (contra == confirmarContra) {
+            return true;
+        }
+        return false;
+    }
+</script>

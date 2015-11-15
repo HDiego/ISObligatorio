@@ -146,5 +146,30 @@ namespace DataAccess
             return false;
         }
         #endregion
+
+        #region GrupoTrabajo
+        public GrupoTrabajo GetGrupoTrabajo(string idGrupo)
+        {
+            foreach (GrupoTrabajo g in GruposTrabajo)
+            {
+                if (g.ID.Equals(idGrupo))
+                {
+                    return g;
+                }
+            }
+            return null;
+        }
+
+        public bool DeleteGrupoTrabajo(string idGrupo)
+        {
+            GrupoTrabajo grupo = GruposTrabajo.Where(g => g.ID.Equals(idGrupo)).FirstOrDefault();
+            if (grupo != null)
+            {
+                GruposTrabajo.Remove(grupo);
+                return true;
+            }
+            return false;
+        }
+        #endregion
     }
 }

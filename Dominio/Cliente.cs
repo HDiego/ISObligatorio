@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Logic
 {
-    public class Cliente
+    [MetadataType(typeof(ClientMetadata))]
+    public partial class Cliente
     {
         public string ID { get; set; }
         public string Nombre { get; set; }
@@ -14,7 +17,6 @@ namespace Logic
         public string Direccion { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
-        public List<Tuple<DateTime, DateTime, string>> PeriodosMembresia { get; set; }
         public GrupoTrabajo GrupoTrabajo { get; set; }
         public List<Membresia> Membresia { get; set; }
 
@@ -34,5 +36,28 @@ namespace Logic
         {
             this.Email = email;
         }
+    }
+
+    public class ClientMetadata 
+    {
+        [DisplayName("Identificador")]
+        [Required(ErrorMessage = "Debe ingresar el identificador")]
+        public string ID { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar el nombre")]
+        public string Nombre { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar el apellido")]
+        public string Apellido { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar la Dirección")]
+        public string Direccion { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar el email")]
+        [RegularExpression(@"(\w|\.)+@(\w|\.)+", ErrorMessage = "El email no es válido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar la contraseña")]
+        public string Contraseña { get; set; }
     }
 }
