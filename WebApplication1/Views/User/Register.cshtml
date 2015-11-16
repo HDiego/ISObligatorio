@@ -21,8 +21,8 @@
                                     @Html.TextBoxFor(m => m.ID, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.ID, "", new { @class = "text-danger" })
                                     <br />
-                                    </center>
-</td>
+                                </center>
+                            </td>
                             <td></td>
                             <td>
                                 <center>
@@ -30,8 +30,8 @@
                                     @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
                                     <br />
-                                    </center>
-</td>
+                                </center>
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -40,8 +40,8 @@
                                     @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Apellido, "", new { @class = "text-danger" })
                                     <br />
-                                    </center>
-</td>
+                                </center>
+                            </td>
                             <td></td>
                             <td>
                                 <center>
@@ -49,9 +49,9 @@
                                     @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
                                     <br />
-                                    </center>
-</td>
-</tr>
+                                </center>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <center>
@@ -59,40 +59,67 @@
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                                     <br />
-                                    </center>
-</td>
+                                </center>
+                            </td>
                             <td></td>
+                            <td>
+                                <center>
+                                    @Html.Label("Membresia", null, new { @class = "form-label" })
+                                    @Html.DropDownList("Membresia.EsTotal", ViewBag.Membresia as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                    <br />
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <center>
+                                    @Html.Label("Fecha desde", null, new { @class = "form-label" })
+                                    @Html.TextBox("Membresia.Desde", DateTime.Today.ToShortDateString(), new { @class = "form-control datepicker", disabled="disabled"})
+                                    @Html.ValidationMessage("Membresia.Desde", new { @class = "text-danger" })
+                                    <br />
+                                </center>
+                            </td>
+                            <td></td>
+                            <td>
+                                <center>
+                                    @Html.Label("Fecha hasta", null, new { @class = "form-label" })
+                                    @Html.TextBox("Membresia.Hasta", null, new { @class = "form-control datepicker", placeholder = "Ingresa la fecha..." })
+                                    @Html.ValidationMessage("Membresia.Hasta", new { @class = "text-danger" })
+                                    <br />
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <center>
                                     @Html.LabelFor(m => m.Contraseña, new { @class = "form-label" })
                                     @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
                                     <br />
-                                    </center>
-</td>
-</tr>
-                        <tr>
+                                </center>
+                            </td>
+                            <td></td>
                             <td>
                                 <center>
                                     @Html.Label("Confirmar contraseña", null, new { @class = "form-label" })
                                     @Html.Password("confirmarContra", null, new { @class = "form-control" })
                                     <br />
-                                    </center>
-</td>
-                            <td></td>
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <center>
                                     @Html.Label("Grupo de trabajo", null, new { @class = "form-label" })
                                     @Html.DropDownList("GrupoTrabajo", ViewBag.Grupos as IEnumerable<SelectListItem>, new { @class = "form-control" })
                                     <br />
-                                    </center>
-</td>
-</tr>
-</tbody>
+                                </center>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <hr />
-                <input type="submit" value="Registrarse" onclick="VerificarContraseña()" class="btn btn-primary btn-lg btn-block" />
-                
+                <input type="submit" value="Registrarse" class="btn btn-primary btn-lg btn-block" />
             </center>
         }
 
@@ -100,13 +127,7 @@
 </div>
 
 <script>
-    function VerificarContraseña() {
-        var contra = $('#Contraseña').val();
-        var confirmarContra = $('#confirmarContra').val();
-
-        if (contra == confirmarContra) {
-            return true;
-        }
-        return false;
-    }
+    $(function () {
+        $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+    });
 </script>

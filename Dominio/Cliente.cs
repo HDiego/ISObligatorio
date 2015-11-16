@@ -18,14 +18,16 @@ namespace Logic
         public string Email { get; set; }
         public string Contraseña { get; set; }
         public GrupoTrabajo GrupoTrabajo { get; set; }
-        public List<Membresia> Membresia { get; set; }
+        public List<Membresia> Membresias { get; set; }
 
         public Cliente() 
         {
+            Membresias = new List<Membresia>();
         }
 
         public Cliente(string nombre, string contraseña, string email, string apellido)
         {
+            Membresias = new List<Membresia>();
             this.Email = email;
             this.Nombre = nombre;
             this.Contraseña = contraseña;
@@ -34,6 +36,7 @@ namespace Logic
 
         public Cliente(string email)
         {
+            Membresias = new List<Membresia>();
             this.Email = email;
         }
     }

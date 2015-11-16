@@ -13,5 +13,8 @@ namespace DataAccess1.Utils
         public const string SALA_TIPO_CELEBRACION = "Celebración";
         public const string MEMBRESIA_TOTAL = "Total";
         public const string MEMBRESIA_PARCIAL = "Parcial";
+        public const int PORCENTAJE_IVA = 22;
+        public const double PRECIO_MEMBRESIA_PARCIAL = 10;
+        public const double PRECIO_MEMBRESIA_TOTAL = 16;
     }
 }
