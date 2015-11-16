@@ -37,27 +37,36 @@ namespace Colabora.Controllers
             {
                 if(user.Contraseña.Equals(confirmarContra))
                 {
-                    if (Membresia.Desde < Membresia.Hasta)
+                    if (Singleton.GetInstance().Clientes.Where(c => c.ID.Equals(user.ID)).ToList().Count > 0)
                     {
-                        if (idGrupoTrabajo != null)
-                        {
-                            user.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
-                        }
-                        user.Membresias.Add(Membresia);
-                        Singleton.GetInstance().Clientes.Add(user);
-                        Factura factura = new Factura(false) 
-                        { 
-                            Cliente = user,
-                            Membresia = Membresia, 
-                            TotalAPagar = Membresia.CalcularTotal(),
-                            IVA = Membresia.CalcularImpuestos()    
-                        };
-
-                        return View("MostrarFactura", factura);
+                        ModelState.AddModelError("ID", "El identificador ya existe");
                     }
+                    else
+                    {
+                        if (Membresia.Desde < Membresia.Hasta)
+                        {
+                            if (idGrupoTrabajo != null)
+                            {
+                                user.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
+                            }
+                            user.Membresias.Add(Membresia);
+                            Singleton.GetInstance().Clientes.Add(user);
+                            Factura factura = new Factura(false)
+                            {
+                                Cliente = user,
+                                Membresia = Membresia,
+                                TotalAPagar = Membresia.CalcularTotal(),
+                                IVA = Membresia.CalcularImpuestos()
+                            };
+
+                            return View("MostrarFactura", factura);
+                        }
                     ModelState.AddModelError("Membresia.Hasta", "La fecha hasta debe ser mayor a la fecha desde");
+                    }
                 }
             }
+            if(user.ID == null)
+                user.ID = Singleton.GetInstance().GetClienteID();
             CargarViewBags();
             return View(user);
         }

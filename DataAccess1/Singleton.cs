@@ -16,6 +16,7 @@ namespace DataAccess
         public List<Reserva> Reservas { get; set; }
         public List<GrupoTrabajo> GruposTrabajo { get; set; }
         public List<Factura> Facturas { get; set; }
+        public int ID_Sugerencia { get; set; }
         #endregion
 
         #region Singleton
@@ -63,6 +64,18 @@ namespace DataAccess
                 return true;
             }
             return false;
+        }
+
+        public string GetClienteID() 
+        {
+            var nuevoID = "CWS_" + this.ID_Sugerencia.ToString("N2");
+            this.ID_Sugerencia ++;
+            while (Clientes.Where(c => c.ID.Equals(nuevoID)).Count() > 0) 
+            {
+                nuevoID = "CWS_" + this.ID_Sugerencia.ToString("N2");
+                this.ID_Sugerencia++;
+            }
+            return nuevoID;
         }
         #endregion
 
