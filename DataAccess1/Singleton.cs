@@ -100,7 +100,16 @@ namespace DataAccess
 
         public bool EsPeriodoMembresiaExcluyente(Cliente cliente, Membresia membresia) 
         {
-            return false;
+            bool esExcluyente = true;
+            foreach (var m in cliente.Membresias) 
+            {
+                if (m.Desde < membresia.Desde && m.Hasta > membresia.Hasta) 
+                {
+                    esExcluyente = false;
+                    break;
+                }
+            }
+            return esExcluyente;
         }
         #endregion
 

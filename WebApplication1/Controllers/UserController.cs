@@ -65,7 +65,6 @@ namespace Colabora.Controllers
                             TotalAPagar = Membresia.CalcularTotal(),
                             IVA = Membresia.CalcularImpuestos()
                         };
-
                         return View("MostrarFactura", factura);
                 }
             }
@@ -118,52 +117,76 @@ namespace Colabora.Controllers
             }
             if (ModelState.IsValid)
             {
-                var ok = true;
-                if (!cliente.Contraseña.Equals(confirmarContra))
+                if (ValidarDatos(cliente, confirmarContra, Membresia, membresiaOn))
                 {
-                    ModelState.AddModelError("confirmarContra", "Las contraseñas no coinciden");
-                    ok = false;
-                }
-                if (membresiaOn && Membresia.Desde < DateTime.Today) 
-                {
-                    ModelState.AddModelError("Membresia.Desde", "La fecha desde debe ser mayoy o igual a hoy");
-                    ok = false;
-                }
-                if (membresiaOn && Membresia.Desde >= Membresia.Hasta)
-                {
-                    ModelState.AddModelError("Membresia.Hasta", "La fecha hasta debe ser mayor a la fecha desde");
-                    ok = false;
-                }
-                if (membresiaOn && Singleton.GetInstance().EsPeriodoMembresiaExcluyente(cliente, Membresia)) 
-                {
-                    ModelState.AddModelError("Membresia.Desde", "El período de membresia debe de ser excluyente de los anteriores");
-                    ok = false;
-                }
-                if (ok)
-                {
-                    if (idGrupoTrabajo != null)
-                    {
-                        cliente.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
-                    }
-                    if (membresiaOn)
-                    {
-                        cliente.Membresias.Add(Membresia);
-                        Factura factura = new Factura(false)
-                        {
-                            Cliente = cliente,
-                            Membresia = Membresia,
-                            TotalAPagar = Membresia.CalcularTotal(),
-                            IVA = Membresia.CalcularImpuestos()
-                        };
-                        Singleton.GetInstance().Clientes.Add(cliente);
-                        return View("MostrarFactura", factura);
-                    }
-                    Singleton.GetInstance().Clientes.Add(cliente);
-                    return RedirectToAction("Index", "Home");
+                    return ContinuarEdicionCuenta(cliente, confirmarContra, idGrupoTrabajo, Membresia, membresiaOn);
                 }
             }
             CargarViewBags();
             return View(cliente);
+        }
+
+        private ActionResult ContinuarEdicionCuenta(Cliente cliente, string confirmarContra, string idGrupoTrabajo, Membresia Membresia, bool membresiaOn) 
+        {
+            if (idGrupoTrabajo != null)
+            {
+                cliente.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
+            }
+            if (membresiaOn)
+            {
+                cliente.Membresias.Add(Membresia);
+                Factura factura = new Factura(false)
+                {
+                    Cliente = cliente,
+                    Membresia = Membresia,
+                    TotalAPagar = Membresia.CalcularTotal(),
+                    IVA = Membresia.CalcularImpuestos()
+                };
+                //ModificarCliente(cliente);
+                ViewBag.ReturnUrl = "Home";
+                return View("MostrarFactura", factura);
+            }
+            ModificarCliente(cliente);
+            return RedirectToAction("Index", "Home");
+        }
+
+        private bool ValidarDatos(Cliente cliente, string confirmarContra, Membresia Membresia, bool membresiaOn)
+        {
+            var ok = true;
+            if (cliente.Contraseña != null && !cliente.Contraseña.Equals(confirmarContra))
+            {
+                ModelState.AddModelError("confirmarContra", "Las contraseñas no coinciden");
+                ok = false;
+            }
+            if (membresiaOn && Membresia.Desde < DateTime.Today)
+            {
+                ModelState.AddModelError("Membresia.Desde", "La fecha desde debe ser mayoy o igual a hoy");
+                ok = false;
+            }
+            if (membresiaOn && Membresia.Desde >= Membresia.Hasta)
+            {
+                ModelState.AddModelError("Membresia.Hasta", "La fecha hasta debe ser mayor a la fecha desde");
+                ok = false;
+            }
+            if (membresiaOn && !Singleton.GetInstance().EsPeriodoMembresiaExcluyente(cliente, Membresia))
+            {
+                ModelState.AddModelError("Membresia.Desde", "El período de membresia debe de ser excluyente de los anteriores");
+                ok = false;
+            }
+            return ok;
+        }
+
+        private void ModificarCliente(Cliente cliente) 
+        {
+            var clienteAModificar = Singleton.GetInstance().GetClientePorID(cliente.ID);
+            clienteAModificar.Apellido = cliente.Apellido;
+            if(!cliente.Contraseña.Equals(""))
+                clienteAModificar.Contraseña = cliente.Contraseña;
+            clienteAModificar.Direccion = cliente.Direccion;
+            clienteAModificar.Email = cliente.Email;
+            clienteAModificar.GrupoTrabajo = cliente.GrupoTrabajo;
+            clienteAModificar.Membresias = cliente.Membresias;
+            clienteAModificar.Nombre = cliente.Nombre;
         }
     }
 }

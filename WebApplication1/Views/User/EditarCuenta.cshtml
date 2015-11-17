@@ -147,7 +147,7 @@
     });
 
     function membresiaHabilitada() {
-        if ($('#ui-id-2').attr("aria-hidden") == "false")
+        if ($('#ui-id-2').attr("aria-hidden") == "false" && $('#Membresia_Desde').val() != "" && $('#Membresia_Hasta').val() != "")
             $('#hidden').html("<input type='text' name='membresiaOn' value='true' />");
     }
 </script>

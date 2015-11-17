@@ -100,7 +100,14 @@
                   
             <hr />
             <div style="width:20%">
-                @Html.ActionLink("Login", "Login", null, new { @class = "btn btn-primary btn-lg btn-block" })
+                @if (ViewBag.ReturnUrl != null)
+                {
+                    @Html.ActionLink("Volver", "Index", "Home", null, new { @class = "btn btn-primary btn-lg btn-block" })
+                }
+                else 
+                {
+                    @Html.ActionLink("Login", "Login", null, new { @class = "btn btn-primary btn-lg btn-block" })
+                }
             </div>
         </center>
 
