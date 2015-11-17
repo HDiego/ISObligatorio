@@ -25,13 +25,15 @@ namespace Logic
             Membresias = new List<Membresia>();
         }
 
-        public Cliente(string nombre, string contraseña, string email, string apellido)
+        public Cliente(string id, string nombre, string apellido, string direccion, string contraseña, string email)
         {
             Membresias = new List<Membresia>();
             this.Email = email;
             this.Nombre = nombre;
             this.Contraseña = contraseña;
             this.Apellido = apellido;
+            this.ID = id;
+            this.Direccion = direccion;
         }
 
         public Cliente(string email)
