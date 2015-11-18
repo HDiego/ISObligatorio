@@ -1,0 +1,121 @@
+﻿@model Logic.Factura
+@{
+    ViewBag.Title = "Factura";
+    Layout = "RegisterLayout.cshtml";
+}
+
+<h2>Factura</h2>
+<hr />
+
+<div class="form-signin">
+    <div class="form-control">
+
+        <center class="loginMargen">
+            <h4>Datos de registro</h4>
+            <hr />
+            <table style="width:25%">
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(m => m.Cliente.ID, new { @class = "form-label" }):
+                            @Html.DisplayFor(m => m.Cliente.ID, null, new { @class = "form-control" })
+                        </td>
+                        <td style="text-align:right">
+                            @Html.LabelFor(m => m.Cliente.Nombre, new { @class = "form-label" }):
+                            @Html.DisplayFor(m => m.Cliente.Nombre, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(m => m.Cliente.Apellido, new { @class = "form-label" }):
+                            @Html.DisplayFor(m => m.Cliente.Apellido, new { @class = "form-control" })
+                        </td>
+                        <td style="text-align:right">
+                            @Html.LabelFor(m => m.Cliente.Direccion, new { @class = "form-label" }):
+                            @Html.DisplayFor(m => m.Cliente.Direccion, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.LabelFor(m => m.Cliente.Email, new { @class = "form-label" }):
+                            @Html.DisplayFor(m => m.Cliente.Email, new { @class = "form-control" })
+                        </td>
+                        @if(Model.Cliente.GrupoTrabajo != null) {
+                        <td style="text-align:right">
+                            @Html.Label("Grupo de trabajo:", null, new { @class = "form-label" })
+                            @Html.DisplayFor(m => m.Cliente.GrupoTrabajo, new { @class = "form-control" })
+                        </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+            <br /><br />
+            <h4>Datos de la membresia</h4>
+            <hr />
+
+            <center>
+                @Html.Label("Tipo de membresia: ", null, new { @class = "form-label" })
+                @if (Model.Membresia.EsTotal)
+                {
+                    <span>Total</span>
+                }
+                else
+                {
+                    <span>Parcial</span>
+                }
+                <br />
+
+                @Html.Label("Fecha desde", null, new { @class = "form-label" })
+                <span>@Model.Membresia.Desde.ToShortDateString()</span>
+                <br />
+                @Html.Label("Fecha hasta", null, new { @class = "form-label" })
+                <span>@Model.Membresia.Hasta.ToShortDateString()</span>
+            </center>
+
+            <br /><br />
+            <h4>Resumen factura</h4>
+            <hr />
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <b>IVA: </b>
+                            <span>@Model.IVA</span>
+                        </td>
+                        <td style="width:2%"></td>
+                        <td>
+                            <b>Total: </b>
+                            <span>@Model.TotalAPagar</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                  
+            <hr />
+            <div style="width:20%">
+                @if (ViewBag.ReturnUrl != null)
+                {
+                    @Html.ActionLink("Volver", "Index", "Home", null, new { @class = "btn btn-primary btn-lg btn-block" })
+                }
+                else 
+                {
+                    @Html.ActionLink("Login", "Login", null, new { @class = "btn btn-primary btn-lg btn-block" })
+                }
+            </div>
+        </center>
+
+
+
+    </div>
+</div>
+

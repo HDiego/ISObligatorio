@@ -16,6 +16,7 @@ namespace DataAccess
         public List<Reserva> Reservas { get; set; }
         public List<GrupoTrabajo> GruposTrabajo { get; set; }
         public List<Factura> Facturas { get; set; }
+        public int ID_Sugerencia { get; set; }
         #endregion
 
         #region Singleton
@@ -23,6 +24,11 @@ namespace DataAccess
         private Singleton()
         {
             Clientes = new List<Cliente>();
+            Salas = new List<Sala>();
+            Reservas = new List<Reserva>();
+            GruposTrabajo = new List<GrupoTrabajo>();
+            Facturas = new List<Factura>();
+            this.ID_Sugerencia = 1;
             AddCliente();
         }
 
@@ -39,9 +45,9 @@ namespace DataAccess
         #region Cliente
         public void AddCliente()
         {
-            Clientes.Add(new Cliente("Diego", "1234", "diego@ort.com", "Rocca"));
-            Clientes.Add(new Cliente("Mauricio", "1234", "mauri@ort.com", "Delbono"));
-            Clientes.Add(new Cliente("Gerardo", "1234", "gerardo@ort.com", "Quintana"));
+            Clientes.Add(new Cliente("1", "Diego", "Rocca", "Av Italia", "1234", "diego@ort.com"));
+            Clientes.Add(new Cliente("2", "Mauricio", "Delbono", "Duvimioso Terra", "1234", "mauri@ort.com"));
+            Clientes.Add(new Cliente("3", "Gerardo", "Quintana", "Cuareim", "1234", "gerardo@ort.com"));
         }
 
         public Cliente GetCliente(string email)
@@ -49,6 +55,16 @@ namespace DataAccess
             foreach (Cliente u in Clientes)
             {
                 if (u.Email.Equals(email))
+                    return u;
+            }
+            return null;
+        }
+
+        public Cliente GetClientePorID(string idUsuario)
+        {
+            foreach (Cliente u in Clientes)
+            {
+                if (u.ID.Equals(idUsuario))
                     return u;
             }
             return null;
@@ -74,6 +90,37 @@ namespace DataAccess
                     retorno = cli;
             }
             return retorno;
+        }
+
+        public string GetClienteID() 
+        {
+            var nuevoID = "CWS_" + this.ID_Sugerencia.ToString("00");
+            this.ID_Sugerencia ++;
+            while (Clientes.Where(c => c.ID.Equals(nuevoID)).Count() > 0) 
+            {
+                nuevoID = "CWS_" + this.ID_Sugerencia.ToString("00");
+                this.ID_Sugerencia++;
+            }
+            return nuevoID;
+        }
+
+        public bool YaExisteIDCliente(string idCliente) 
+        {
+            return Clientes.Where(c => c.ID.Equals(idCliente)).ToList().Count > 0;
+        }
+
+        public bool EsPeriodoMembresiaExcluyente(Cliente cliente, Membresia membresia) 
+        {
+            bool esExcluyente = true;
+            foreach (var m in cliente.Membresias) 
+            {
+                if (m.Desde < membresia.Desde && m.Hasta > membresia.Hasta) 
+                {
+                    esExcluyente = false;
+                    break;
+                }
+            }
+            return esExcluyente;
         }
         #endregion
 
@@ -152,6 +199,31 @@ namespace DataAccess
             if (factura != null)
             {
                 Facturas.Remove(factura);
+                return true;
+            }
+            return false;
+        }
+        #endregion
+
+        #region GrupoTrabajo
+        public GrupoTrabajo GetGrupoTrabajo(string idGrupo)
+        {
+            foreach (GrupoTrabajo g in GruposTrabajo)
+            {
+                if (g.ID.Equals(idGrupo))
+                {
+                    return g;
+                }
+            }
+            return null;
+        }
+
+        public bool DeleteGrupoTrabajo(string idGrupo)
+        {
+            GrupoTrabajo grupo = GruposTrabajo.Where(g => g.ID.Equals(idGrupo)).FirstOrDefault();
+            if (grupo != null)
+            {
+                GruposTrabajo.Remove(grupo);
                 return true;
             }
             return false;
