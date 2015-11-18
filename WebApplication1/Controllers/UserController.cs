@@ -125,9 +125,9 @@ namespace Colabora.Controllers
             return View(factura);
         }
 
-        public ActionResult EditarCuenta(string idUsuario) 
+        public ActionResult EditarCuenta(string idCliente) 
         {
-            var usuario = Singleton.GetInstance().GetClientePorID(idUsuario);
+            var usuario = Singleton.GetInstance().GetClientePorID(idCliente);
             CargarViewBags();
             return View(usuario);
         }

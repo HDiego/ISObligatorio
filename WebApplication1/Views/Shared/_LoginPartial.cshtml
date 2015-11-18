@@ -16,7 +16,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Editar Cuenta", "EditarCuenta", "User", routeValues: ((Logic.Cliente)Session["user"]).ID, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Editar Cuenta", "EditarCuenta", "User", new { idCliente = ((Logic.Cliente)Session["user"]).ID }, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log out", "LogOut", "User")</li>
     </ul>
 }
