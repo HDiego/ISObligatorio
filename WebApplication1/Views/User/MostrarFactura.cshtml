@@ -50,10 +50,12 @@
                             @Html.LabelFor(m => m.Cliente.Email, new { @class = "form-label" }):
                             @Html.DisplayFor(m => m.Cliente.Email, new { @class = "form-control" })
                         </td>
+                        @if(Model.Cliente.GrupoTrabajo != null) {
                         <td style="text-align:right">
                             @Html.Label("Grupo de trabajo:", null, new { @class = "form-label" })
                             @Html.DisplayFor(m => m.Cliente.GrupoTrabajo, new { @class = "form-control" })
                         </td>
+                        }
                     </tr>
                 </tbody>
             </table>
@@ -90,6 +92,7 @@
                             <b>IVA: </b>
                             <span>@Model.IVA</span>
                         </td>
+                        <td style="width:2%"></td>
                         <td>
                             <b>Total: </b>
                             <span>@Model.TotalAPagar</span>

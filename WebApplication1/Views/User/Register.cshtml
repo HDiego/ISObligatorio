@@ -1,16 +1,18 @@
 ﻿@model Logic.Cliente
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Register"; 
+    Layout = "~/Views/User/RegisterLayout.cshtml";
 }
 
-<h2>Registro</h2>
-<hr />
+
 
 <div class="form-signin">
     <div class="form-control">
         @using (Html.BeginForm("Register", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
             <center class="loginMargen">
+                <h2>Registro</h2>
+                <hr />
                 <table style="width:60%">
                     <tbody>
                         <tr>

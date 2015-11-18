@@ -3,14 +3,13 @@
     ViewBag.Title = "Editar cuenta";
 }
 
-<h2>Editar cuenta</h2>
-<hr />
-
 <div class="form-signin">
     <div class="form-control">
         @using (Html.BeginForm("EditarCuenta", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
             <center class="loginMargen">
+                <h2>Editar cuenta</h2>
+                <hr />
                 <table style="width:60%">
                     <tbody>
                         <tr>
