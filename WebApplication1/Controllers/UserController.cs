@@ -142,7 +142,7 @@ namespace Colabora.Controllers
                     TotalAPagar = Membresia.CalcularTotal(),
                     IVA = Membresia.CalcularImpuestos()
                 };
-                //ModificarCliente(cliente);
+                ModificarCliente(cliente);
                 ViewBag.ReturnUrl = "Home";
                 return View("MostrarFactura", factura);
             }
