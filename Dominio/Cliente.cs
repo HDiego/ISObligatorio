@@ -55,7 +55,7 @@ namespace Logic
         [Required(ErrorMessage = "Debe ingresar el apellido")]
         public string Apellido { get; set; }
 
-        [Required(ErrorMessage = "Debe ingresar la Dirección")]
+        [Required(ErrorMessage = "Debe ingresar la dirección")]
         public string Direccion { get; set; }
 
         [Required(ErrorMessage = "Debe ingresar el email")]
