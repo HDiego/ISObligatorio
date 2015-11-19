@@ -74,8 +74,8 @@ namespace DataAccess
 
         public bool DeleteCliente(string email)
         {
-            Cliente u = new Cliente(email);
-            if (Clientes.Contains(u))
+            Cliente u = Clientes.Find(c => c.Email.Equals(email));
+            if (u != null)
             {
                 Clientes.Remove(u);
                 return true;
@@ -116,7 +116,7 @@ namespace DataAccess
             bool esExcluyente = true;
             foreach (var m in cliente.Membresias) 
             {
-                if (m.Desde < membresia.Desde && m.Hasta > membresia.Hasta) 
+                if (m.Desde < membresia.Desde && m.Hasta > membresia.Desde) 
                 {
                     esExcluyente = false;
                     break;

@@ -15,6 +15,13 @@ namespace Logic
         public DateTime Hasta { get; set; }
         public bool EsTotal { get; set; }
 
+        public Membresia(DateTime desde, DateTime hasta, bool estotal) 
+        {
+            this.Desde = desde;
+            this.Hasta = hasta;
+            this.EsTotal = estotal;
+        } 
+
         public double CalcularTotal()
         {
             if(EsTotal)
