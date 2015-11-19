@@ -37,7 +37,7 @@ namespace Colabora.Controllers
                 Cliente logeado = BD.ValidLogIn(usuario.UserName, usuario.Password);
                 if (logeado == null)
                 {
-                    ModelState.AddModelError(string.Empty, "El nombre de usuario o contraseña son incorrectos");
+                    ModelState.AddModelError(string.Empty, "El identificador de usuario o contraseña son incorrectos");
                     return View("Login", usuario);
                 }
                 Session["user"] = logeado;
@@ -108,7 +108,7 @@ namespace Colabora.Controllers
             List<GrupoTrabajo> grupos = Singleton.GetInstance().GruposTrabajo;
             if (grupos != null)
             {
-                ViewBag.Grupos = grupos.Select(g => new SelectListItem()
+                ViewBag.Grupos = grupos.Where(g => HayUnoActivo(g.Colaboradores)).Select(g => new SelectListItem()
                 {
                     Text = g.Nombre,
                     Value = g.ID
@@ -120,6 +120,18 @@ namespace Colabora.Controllers
             }
             ViewBag.membresia = new List<SelectListItem>() { new SelectListItem() { Text = "Parcial", Value = "false" }, 
                                                              new SelectListItem() { Text = "Total", Value = "true" } };
+        }
+
+        private bool HayUnoActivo(List<Cliente> list)
+        {
+            foreach (var cliente in list) 
+            {
+                if (cliente.EstaActivo()) 
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public ActionResult MostrarFactura(Factura factura)

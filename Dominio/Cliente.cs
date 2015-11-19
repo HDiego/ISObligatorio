@@ -41,6 +41,18 @@ namespace Logic
             Membresias = new List<Membresia>();
             this.Email = email;
         }
+
+        public bool EstaActivo()
+        {
+            foreach (var membresia in Membresias) 
+            {
+                if (membresia.Desde <= DateTime.Today && membresia.Hasta > DateTime.Today) 
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     public class ClientMetadata 

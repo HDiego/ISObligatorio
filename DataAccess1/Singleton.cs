@@ -83,12 +83,12 @@ namespace DataAccess
             return false;
         }
 
-        public Cliente ValidLogIn(string email, string contraseña)
+        public Cliente ValidLogIn(string idCliente, string contraseña)
         {
             Cliente retorno = null;
             foreach(Cliente cli in Clientes)
             {
-                if (cli.Email.Equals(email) && cli.Contraseña.Equals(contraseña))
+                if (cli.ID.Equals(idCliente) && cli.Contraseña.Equals(contraseña))
                     retorno = cli;
             }
             return retorno;
@@ -200,7 +200,7 @@ namespace DataAccess
 
         public Reserva GetReservaById(string idReserva)
         {
-            return Reservas.Where(r => r.ID.Equals(idReserva)).First();
+            return Reservas.Where(r => r.ID.Equals(idReserva)).FirstOrDefault();
         }
 
         public bool DeleteReserva(string idCliente, string idSala, DateTime fechaDesde)
@@ -262,6 +262,9 @@ namespace DataAccess
             Clientes.Where(c => c.ID.Equals("1")).First().GrupoTrabajo = grupoNuevo;
             Clientes.Where(c => c.ID.Equals("2")).First().GrupoTrabajo = grupoNuevo;
             Clientes.Where(c => c.ID.Equals("3")).First().GrupoTrabajo = grupoNuevo;
+
+            Membresia membresia = new Membresia(DateTime.Today, DateTime.Today.AddDays(5), false);
+            Clientes.Where(c => c.ID.Equals("1")).First().Membresias.Add(membresia);
         }
         public GrupoTrabajo GetGrupoTrabajo(string idGrupo)
         {

@@ -16,5 +16,6 @@ namespace DataAccess1.Utils
         public const double PORCENTAJE_IVA = 22;
         public const double PRECIO_MEMBRESIA_PARCIAL = 10;
         public const double PRECIO_MEMBRESIA_TOTAL = 16;
+        public const double PRECIO_RESERVA_SALA = 20;
     }
 }

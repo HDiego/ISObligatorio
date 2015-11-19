@@ -260,6 +260,7 @@
     <Content Include="Views\Reserva\List.cshtml" />
     <Content Include="Views\Reserva\AddReserva.cshtml" />
     <Content Include="Views\Reserva\NotificarReserva.cshtml" />
+    <Content Include="Views\Reserva\MostrarFactura.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

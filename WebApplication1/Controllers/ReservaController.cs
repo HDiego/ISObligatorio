@@ -38,31 +38,47 @@ namespace Colabora.Controllers
         public ActionResult AddReserva(AddReservaModel model)
         {
             Singleton DB = Singleton.GetInstance();
-            if(model.Reserva.Desde == null || model.Reserva.Desde.Date < DateTime.Now.Date)
+            if (DB.GetReservaById(model.Reserva.ID) != null)
             {
-                ModelState.AddModelError(string.Empty, "La fecha de inicio debe ser a lo sumo hoy");
+                return RedirectToAction("List");
             }
             else
             {
-                if(model.Reserva.Hasta == null || model.Reserva.Hasta.Date < DateTime.Now.Date || model.Reserva.Hasta.Date < model.Reserva.Desde.Date)
+                if (model.Reserva.Desde == null || model.Reserva.Desde.Date < DateTime.Now.Date)
                 {
-                    ModelState.AddModelError(string.Empty, "La fecha de fin debe ser posterior a la de inicio");
+                    ModelState.AddModelError(string.Empty, "La fecha de inicio debe ser a lo sumo hoy");
                 }
                 else
                 {
-                    if(DB.SalaDisponible(model.Reserva.Sala.ID, model.Reserva.Desde, model.Reserva.Hasta))
-                    { 
-                        Reserva reserva = model.Reserva;
-                        reserva.Sala = DB.GetSala(model.Reserva.Sala.ID);
-                        reserva.Cliente = (Cliente)Session["user"];
-                        reserva.ID = reserva.Cliente.ID + reserva.Sala.ID + reserva.Desde.Day + reserva.Desde.Month + reserva.Desde.Year;
-                        DB.NewReserva(reserva);
-                        List<Reserva> lstReserva = DB.LoadReserva(reserva.Cliente.ID);
-                        return View("List", lstReserva);
+                    if (model.Reserva.Hasta == null || model.Reserva.Hasta.Date < DateTime.Now.Date || model.Reserva.Hasta.Date < model.Reserva.Desde.Date)
+                    {
+                        ModelState.AddModelError(string.Empty, "La fecha de fin debe ser posterior a la de inicio");
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "La sala ya se encuentra reservada para esa fecha");
+                        if (DB.SalaDisponible(model.Reserva.Sala.ID, model.Reserva.Desde, model.Reserva.Hasta))
+                        {
+                            Reserva reserva = model.Reserva;
+                            reserva.Sala = DB.GetSala(model.Reserva.Sala.ID);
+                            reserva.Cliente = (Cliente)Session["user"];
+                            reserva.ID = reserva.Cliente.ID + reserva.Sala.ID + reserva.Desde.Day + reserva.Desde.Month + reserva.Desde.Year;
+                            DB.NewReserva(reserva);
+                            List<Reserva> lstReserva = DB.LoadReserva(reserva.Cliente.ID);
+
+                            Factura factura = new Factura(false)
+                            {
+                                Cliente = (Cliente)Session["user"],
+                                Reserva = reserva,
+                                EsPorReserva = true,
+                                TotalAPagar = reserva.CalcularTotal(),
+                                IVA = reserva.CalcularImpuestos()
+                            };
+                            return View("MostrarFactura", factura);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, "La sala ya se encuentra reservada para esa fecha");
+                        }
                     }
                 }
             }

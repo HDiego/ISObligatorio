@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess1.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -41,6 +42,16 @@ namespace Logic
                 return true;
             }
             return false;
+        }
+
+        public double CalcularTotal()
+        {
+            return this.Hasta.Subtract(this.Desde).Days * Constantes.PRECIO_RESERVA_SALA * (Constantes.PORCENTAJE_IVA / 100 + 1);
+        }
+
+        public double CalcularImpuestos()
+        {
+            return this.Hasta.Subtract(this.Desde).Days * Constantes.PRECIO_RESERVA_SALA * (Constantes.PORCENTAJE_IVA / 100);
         }
     }
 }

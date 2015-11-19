@@ -69,7 +69,7 @@ namespace UnitTestColabora
         public void ValidLogIn()
         {
             var BD = Singleton.GetInstance();
-            var obtenido = BD.ValidLogIn("mauriciodelbonofripp@gmail.com", "1234");
+            var obtenido = BD.ValidLogIn("2", "1234");
             var esperado = BD.GetCliente("mauriciodelbonofripp@gmail.com");
             Assert.AreEqual(esperado, obtenido);
         }

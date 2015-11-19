@@ -41,5 +41,38 @@ namespace UnitTestColabora
             var obtenido = reserva.SePuedeNotificar();
             Assert.AreEqual(false, obtenido);
         }
+
+        [TestMethod]
+        public void Cliente_EstaActivo()
+        {
+            var BD = Singleton.GetInstance();
+            var cliente = BD.GetClientePorID("1");
+            Membresia membresia = new Membresia(DateTime.Today, DateTime.Today.AddDays(5), false);
+            cliente.Membresias.Add(membresia);
+            var obtenido = cliente.EstaActivo();
+            Assert.AreEqual(true, obtenido);
+        }
+
+        [TestMethod]
+        public void Reserva_CalcularTotal()
+        {
+            var BD = Singleton.GetInstance();
+            var cliente = BD.GetClientePorID("1");
+            var sala = BD.GetSala("1");
+            Reserva reserva = new Reserva(cliente, sala, DateTime.Today, DateTime.Today.AddDays(5));
+            double obtenido = reserva.CalcularTotal();
+            Assert.AreEqual(122, obtenido);
+        }
+
+        [TestMethod]
+        public void Reserva_CalcularImpuestos()
+        {
+            var BD = Singleton.GetInstance();
+            var cliente = BD.GetClientePorID("1");
+            var sala = BD.GetSala("1");
+            Reserva reserva = new Reserva(cliente, sala, DateTime.Today, DateTime.Today.AddDays(5));
+            double obtenido = reserva.CalcularImpuestos();
+            Assert.AreEqual(22, obtenido);
+        }
     }
 }
