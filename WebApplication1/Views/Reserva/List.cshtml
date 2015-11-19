@@ -1,0 +1,67 @@
+﻿@model List<Logic.Reserva>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="divGeneral">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h2 style="text-align:center">Lista Reservas</h2>
+        </div>
+    </div>
+    <div class="panel-body">
+        @if (Model != null && Model.Count > 0)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="active">
+                        <th>
+                            Desde
+                        </th>
+                        <th>
+                            Hasta
+                        </th>
+                        <th>
+                            Descripción Sala
+                        </th>
+                        <th>
+                            Tipo de Sala
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (@Logic.Reserva r in Model)
+                    {
+                        <tr>
+                            <th class="success">
+                                @r.Desde.ToShortDateString()
+                            </th>
+                            <th class="danger">
+                                @r.Hasta.ToShortDateString()
+                            </th>
+                            <th class="warning">
+                                @r.Sala.Descripcion
+                            </th>
+                            <th>
+                                @r.Sala.TipoSala
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="row">
+                <strong class="alert-info">No hay reservas</strong>
+            </div>
+        }
+        <br />
+        <br />
+        @using (Html.BeginForm("AddReservaView", "Reserva"))
+        {
+            <input type="submit" class=" btn btn-primary" value="Nueva Reserva" />
+        }
+    </div>
+</div>

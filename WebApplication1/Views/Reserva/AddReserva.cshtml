@@ -1,0 +1,106 @@
+﻿@model Colabora.Models.AddReservaModel
+@{
+    ViewBag.Title = "AddReserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="divGeneral">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h3 style="text-align:center">Nueva Reserva</h3>
+        </div>
+    </div>
+    <div class="panel-body">
+        @if(Model != null && Model.ListSala != null && Model.ListSala.Count > 0)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="active">
+                        <th>
+                            Identificador
+                        </th>
+                        <th>
+                            TipoSala
+                        </th>
+                        <th>
+                            Descripción
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Logic.Sala sala in Model.ListSala)
+                    {
+                        <tr>
+                            <th class="success">
+                                @sala.ID
+                            </th>
+                            <th>
+                                @sala.TipoSala
+                            </th>
+                            <th class="warning">
+                                @sala.Descripcion
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            using (Html.BeginForm("SelectSala", "Reserva"))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="Reserva_ID">Identificador de Sala</label>
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBox("txtID", null, new { Class = "form-control" })
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-10">
+                        <input type="submit" class="btn btn-primary"  value="Seleccionar" />
+                    </div>
+                </div>
+            }
+        }
+        @if(Model != null && Model.Reserva != null && Model.Reserva.Sala !=null)
+        { 
+            using(Html.BeginForm("AddReserva","Reserva"))
+            { 
+                @Html.HiddenFor(m => m.Reserva.Sala.ID)
+                <div class="form-group">
+                    <label for="Sala_Tipo"><strong>Tipo de Sala: </strong></label>
+                    @Model.Reserva.Sala.TipoSala
+                </div>
+            
+                <div class="form-group">
+                    <label for="Sala_Descripcion"><strong>Descripción: </strong></label>
+                    @Model.Reserva.Sala.Descripcion
+                </div>
+            
+                <div class="form-group">
+                    <label for="Sala_Capacidad"><strong>Capacidad: </strong></label>
+                    @Model.Reserva.Sala.CapacidadMaxima
+                </div>
+            
+                <div class="form-group">
+                    <label for="Reserva_Inicio">Fecha Inicio</label>
+                    @Html.TextBoxFor(m => m.Reserva.Desde, new { Class = "form-control"})
+                </div>
+                <div class="form-group">
+                    <label for="Reserva_Fin">Fecha Fin</label>
+                    @Html.TextBoxFor(m => m.Reserva.Hasta, new { Class = "form-control" })
+                </div>
+            <input type="submit" class="btn btn-primary" value="Guardar" />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            }
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#Reserva_Desde').datepicker({ dateFormat: "dd/mm/yy", changeYear: true });
+        $('#Reserva_Hasta').datepicker({ dateFormat: "dd/mm/yy", changeYear: true });
+    });
+    
+</script>
+

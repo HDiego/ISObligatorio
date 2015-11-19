@@ -30,6 +30,7 @@ namespace DataAccess
             Facturas = new List<Factura>();
             this.ID_Sugerencia = 1;
             AddCliente();
+            AddSala();
         }
 
         public static Singleton GetInstance()
@@ -152,9 +153,40 @@ namespace DataAccess
             }
             return false;
         }
+
+        public bool SalaDisponible(string id, DateTime desde, DateTime hasta)
+        {
+            foreach(Reserva r in Reservas)
+            {
+                if (r.Sala.ID.Equals(id))
+                {
+                    if (r.Desde.Date > hasta.Date)
+                        return true;
+                    if (r.Hasta.Date < desde.Date)
+                        return true;
+                    return false;
+                }
+            }
+            return true;
+        }
+        public List<Sala> LoadSala()
+        {
+            return this.Salas;
+        }
         #endregion
 
         #region Reserva
+        public void NewReserva(Reserva r)
+        {
+            this.Reservas.Add(r);
+        }
+
+        public void AddReserva(DateTime desde, DateTime hasta, Sala sala, Cliente cliente)
+        {
+            Reserva reserva = new Reserva(cliente, sala, desde, hasta);
+            Reservas.Add(reserva);
+        }
+
         public Reserva GetReserva(string idCliente, string idSala, DateTime fechaDesde)
         {
             foreach (Reserva r in Reservas)
@@ -174,6 +206,17 @@ namespace DataAccess
                 return true;
             }
             return false;
+        }
+
+        public List<Reserva> LoadReserva(string idCliente)
+        {
+            List<Reserva> listReserva = new List<Reserva>();
+            foreach(Reserva r in Reservas)
+            {
+                if (r.Cliente.ID.Equals(idCliente))
+                    listReserva.Add(r);
+            }
+            return listReserva;
         }
         #endregion
 

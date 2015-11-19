@@ -27,7 +27,7 @@ namespace Colabora.Controllers
 
         public ActionResult LoginUser(LoginViewModel usuario)
         {
-            if(usuario.Password == null || usuario.UserName == null)
+            if (usuario.Password == null || usuario.UserName == null)
             {
                 return View("Login", usuario);
             }
@@ -36,7 +36,7 @@ namespace Colabora.Controllers
                 Singleton BD = Singleton.GetInstance();
                 Cliente logeado = BD.ValidLogIn(usuario.UserName, usuario.Password);
                 if (logeado == null)
-        {
+                {
                     ModelState.AddModelError(string.Empty, "El nombre de usuario o contraseña son incorrectos");
                     return View("Login", usuario);
                 }
@@ -51,7 +51,7 @@ namespace Colabora.Controllers
             LoginViewModel model = new LoginViewModel();
             return View("Login", model);
         }
-        public ActionResult Register() 
+        public ActionResult Register()
         {
             CargarViewBags();
             return View();
@@ -60,10 +60,10 @@ namespace Colabora.Controllers
         [HttpPost]
         public ActionResult Register(Cliente user, string confirmarContra, string idGrupoTrabajo, Membresia Membresia)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
                 var ok = true;
-                if(!user.Contraseña.Equals(confirmarContra))
+                if (!user.Contraseña.Equals(confirmarContra))
                 {
                     ModelState.AddModelError("confirmarContra", "Las contraseñas no coinciden");
                     ok = false;
@@ -78,30 +78,31 @@ namespace Colabora.Controllers
                     ModelState.AddModelError("Membresia.Hasta", "La fecha hasta debe ser mayor a la fecha desde");
                     ok = false;
                 }
-                if(ok){
-                        if (idGrupoTrabajo != null)
-                        {
-                            user.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
-                        }
-                        user.Membresias.Add(Membresia);
-                        Singleton.GetInstance().Clientes.Add(user);
-                        Factura factura = new Factura(false)
-                        {
-                            Cliente = user,
-                            Membresia = Membresia,
-                            TotalAPagar = Membresia.CalcularTotal(),
-                            IVA = Membresia.CalcularImpuestos()
-                        };
-                        return View("MostrarFactura", factura);
+                if (ok)
+                {
+                    if (idGrupoTrabajo != null)
+                    {
+                        user.GrupoTrabajo = Singleton.GetInstance().GetGrupoTrabajo(idGrupoTrabajo);
+                    }
+                    user.Membresias.Add(Membresia);
+                    Singleton.GetInstance().Clientes.Add(user);
+                    Factura factura = new Factura(false)
+                    {
+                        Cliente = user,
+                        Membresia = Membresia,
+                        TotalAPagar = Membresia.CalcularTotal(),
+                        IVA = Membresia.CalcularImpuestos()
+                    };
+                    return View("MostrarFactura", factura);
                 }
             }
-            if(user.ID == null)
+            if (user.ID == null)
                 user.ID = Singleton.GetInstance().GetClienteID();
             CargarViewBags();
             return View(user);
         }
 
-        public void CargarViewBags() 
+        public void CargarViewBags()
         {
             List<GrupoTrabajo> grupos = Singleton.GetInstance().GruposTrabajo;
             if (grupos != null)
@@ -120,12 +121,12 @@ namespace Colabora.Controllers
                                                              new SelectListItem() { Text = "Total", Value = "true" } };
         }
 
-        public ActionResult MostrarFactura(Factura factura) 
+        public ActionResult MostrarFactura(Factura factura)
         {
             return View(factura);
         }
 
-        public ActionResult EditarCuenta(string idCliente) 
+        public ActionResult EditarCuenta(string idCliente)
         {
             var usuario = Singleton.GetInstance().GetClientePorID(idCliente);
             CargarViewBags();
@@ -153,7 +154,7 @@ namespace Colabora.Controllers
             return View(cliente);
         }
 
-        private ActionResult ContinuarEdicionCuenta(Cliente cliente, string confirmarContra, string idGrupoTrabajo, Membresia Membresia, bool membresiaOn) 
+        private ActionResult ContinuarEdicionCuenta(Cliente cliente, string confirmarContra, string idGrupoTrabajo, Membresia Membresia, bool membresiaOn)
         {
             if (idGrupoTrabajo != null)
             {
@@ -203,11 +204,11 @@ namespace Colabora.Controllers
             return ok;
         }
 
-        private void ModificarCliente(Cliente cliente) 
+        private void ModificarCliente(Cliente cliente)
         {
             var clienteAModificar = Singleton.GetInstance().GetClientePorID(cliente.ID);
             clienteAModificar.Apellido = cliente.Apellido;
-            if(!cliente.Contraseña.Equals(""))
+            if (!cliente.Contraseña.Equals(""))
                 clienteAModificar.Contraseña = cliente.Contraseña;
             clienteAModificar.Direccion = cliente.Direccion;
             clienteAModificar.Email = cliente.Email;

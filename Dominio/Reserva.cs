@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,13 @@ namespace Logic
             this.Hasta = fechaHasta;
             this.Cliente = cliente;
             this.Sala = sala;
+        }
+
+        public Reserva()
+        {
+            this.Desde = DateTime.Now.Date;
+            this.Hasta = DateTime.Now.Date;
+            this.Sala = new Sala();
         }
     }
 }

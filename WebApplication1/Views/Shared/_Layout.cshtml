@@ -11,6 +11,7 @@
     @RenderSection("scripts", required: false)
 
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -24,14 +25,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Salas", "About", "Home")</li>
+                    <li>@Html.ActionLink("Salas", "List", "Reserva")</li>
                     <li>@Html.ActionLink("Facturas", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="panel-footer">
         @RenderBody()
         <hr />
         <footer>
@@ -39,6 +40,6 @@
         </footer>
     </div>
 
-    
+
 </body>
 </html>

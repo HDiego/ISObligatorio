@@ -21,6 +21,8 @@ namespace Logic
             this.Descripcion = descripcion;
         }
 
+        public Sala() { }
+
         public Sala(string id)
         {
             this.ID = id;

@@ -3,15 +3,14 @@
     Layout = "~/Views/User/LoginLayout.cshtml";
 }
 <div class="form-signin">
-    @*@Html.DisplayFor(m => m.Email)*@
     <div class="form-control">
         @using (Html.BeginForm("LoginUser", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
             <center class="loginMargen">
-            <h2>Bienvenido a COLABORA</h2>
-            <hr />
+                <h2>Bienvenido a COLABORA</h2>
+                <hr />
                 <h4>Identifíquese para acceder</h4><br />
-    
+
                 @Html.LabelFor(m => m.UserName, new { @cClientelass = "form-label" })
                 @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
@@ -20,16 +19,16 @@
                 @Html.LabelFor(m => m.Password, new { @class = "form-label" })
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <hr />
-        <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block" />
-        <hr />
+                <hr />
+                <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block" />
+                <hr />
 
-        <div class="row">
-            <p class="text-center">No tienes una cuenta de Colabora?@Html.ActionLink("Registrarse", "Register", null, new { @class = "btn btn-link btn-large" })</p>
-        </div>
-    </center>
+                <div class="row">
+                    <p class="text-center">No tienes una cuenta de Colabora?@Html.ActionLink("Registrarse", "Register", null, new { @class = "btn btn-link btn-large" })</p>
+                </div>
+            </center>
         }
     </div>
 </div>
