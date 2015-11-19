@@ -51,6 +51,7 @@ namespace Colabora.Controllers
             LoginViewModel model = new LoginViewModel();
             return View("Login", model);
         }
+       
         public ActionResult Register()
         {
             CargarViewBags();
