@@ -23,6 +23,9 @@
                             Hasta
                         </th>
                         <th>
+                            Identificador Sala
+                        </th>
+                        <th>
                             Descripción Sala
                         </th>
                         <th>
@@ -34,11 +37,14 @@
                     @foreach (@Logic.Reserva r in Model)
                     {
                         <tr>
-                            <th class="success">
+                            <th class="danger">
                                 @r.Desde.ToShortDateString()
                             </th>
                             <th class="danger">
                                 @r.Hasta.ToShortDateString()
+                            </th>
+                            <th class="success">
+                                @r.Sala.ID
                             </th>
                             <th class="warning">
                                 @r.Sala.Descripcion
