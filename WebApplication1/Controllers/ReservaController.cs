@@ -1,5 +1,6 @@
 ﻿using Colabora.Models;
 using DataAccess;
+using Dominio.Utils;
 using Logic;
 using System;
 using System.Collections.Generic;
@@ -54,6 +55,7 @@ namespace Colabora.Controllers
                         Reserva reserva = model.Reserva;
                         reserva.Sala = DB.GetSala(model.Reserva.Sala.ID);
                         reserva.Cliente = (Cliente)Session["user"];
+                        reserva.ID = reserva.Cliente.ID + reserva.Sala.ID + reserva.Desde.Day + reserva.Desde.Month + reserva.Desde.Year;
                         DB.NewReserva(reserva);
                         List<Reserva> lstReserva = DB.LoadReserva(reserva.Cliente.ID);
                         return View("List", lstReserva);
@@ -80,6 +82,29 @@ namespace Colabora.Controllers
                 ModelState.AddModelError(string.Empty, "El identificador no es correcto");
             }
             return View("AddReserva", model);
+        }
+
+        public ActionResult NotificarReserva(string idReserva) 
+        {
+            Session["reserva"] = Singleton.GetInstance().GetReservaById(idReserva);
+            var listaColaboradores = ((Cliente)Session["user"]).GrupoTrabajo.Colaboradores.Where(c => !c.ID.Equals(((Cliente)Session["user"]).ID)).ToList();
+            return View(listaColaboradores);
+        }
+
+        //[HttpPost]
+        public ActionResult NotificarColaboradores(string[] colaboradores)
+        {
+            colaboradores = colaboradores[0].Split(',').ToArray();
+            Singleton BD = Singleton.GetInstance();
+            var listaClientes = new List<Cliente>();
+            foreach (var s in colaboradores) 
+            {
+                listaClientes.Add(BD.Clientes.Where(c => c.ID.Equals(s)).First());
+            }
+            Reserva reserva = ((Reserva)Session["reserva"]);
+            ServicioEmail.EnviarEmail(listaClientes, reserva, ((Cliente)Session["user"]));
+            reserva.SeNotifico = true;
+            return RedirectToAction("Index", "User");
         }
 	}
 }

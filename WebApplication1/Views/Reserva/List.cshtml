@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (@Logic.Reserva r in Model)
+                    @foreach (Logic.Reserva r in Model)
                     {
                         <tr>
                             <th class="danger">
@@ -51,6 +51,11 @@
                             </th>
                             <th>
                                 @r.Sala.TipoSala
+                            </th>
+                            <th>
+                                @if (r.SePuedeNotificar()) {
+                                    @Html.ActionLink("Notificar", "NotificarReserva", "Reserva", new { idReserva = r.ID }, new { @class = "btn btn-primary btn-lg btn-block" })
+                                }
                             </th>
                         </tr>
                     }

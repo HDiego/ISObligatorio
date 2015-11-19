@@ -9,10 +9,12 @@ namespace Logic
 {
     public class Reserva
     {
+        public string ID { get; set; }
         public DateTime Desde { get; set; }
         public DateTime Hasta { get; set; }
         public Cliente Cliente { get; set; }
         public Sala Sala { get; set; }
+        public bool SeNotifico { get; set; }
         
         public Reserva(Cliente cliente, Sala sala, DateTime fechaDesde, DateTime fechaHasta) 
         {
@@ -20,6 +22,8 @@ namespace Logic
             this.Hasta = fechaHasta;
             this.Cliente = cliente;
             this.Sala = sala;
+            this.SeNotifico = false;
+            this.ID = cliente.ID + sala.ID + fechaDesde.Day + fechaDesde.Month + fechaDesde.Year;
         }
 
         public Reserva()
@@ -27,6 +31,16 @@ namespace Logic
             this.Desde = DateTime.Now.Date;
             this.Hasta = DateTime.Now.Date;
             this.Sala = new Sala();
+            this.SeNotifico = false;
+        }
+
+        public bool SePuedeNotificar()
+        {
+            if (!SeNotifico && DateTime.Now < Desde.AddHours(23)) 
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

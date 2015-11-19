@@ -1,0 +1,97 @@
+﻿@model List<Logic.Cliente>
+@{
+    ViewBag.Title = "NotificarReserva";
+}
+
+<div id="divGeneral">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h2 style="text-align:center">Notificar Reserva</h2>
+            <hr />
+        </div>
+    </div>
+    <div class="panel-body">
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="active">
+                        <th>
+                            Identificador
+                        </th>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Apellido
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model)
+                    {
+                        <tr id="@c.ID" onclick="AgregarOQuitarCliente(this);">
+                            <td>
+                                @c.ID
+                            </td>
+                            <td>
+                                @c.Nombre
+                            </td>
+                            <td>
+                                @c.Apellido
+                            </td>
+                            <td>
+                                @c.Email
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        
+        <br />
+        <br />
+            <input type="button" onclick="Notificar();" class=" btn btn-primary" value="Nueva Reserva" />
+        
+    </div>
+</div>
+
+<script>
+    var seleccionados = [];
+
+    function AgregarOQuitarCliente(fila) {
+        if ($(fila).hasClass("success")) {
+            $(fila).removeClass("success");
+            var index = seleccionados.indexOf(fila.id);
+            if (index > -1) {
+                seleccionados.splice(index, 1);
+            }
+        }
+        else {
+            $(fila).addClass("success");
+            seleccionados.push(fila.id);
+        }
+    }
+
+    function Notificar() {
+        var json = {};
+        for (i in seleccionados) {
+            json[i] = seleccionados[i];
+        }
+        json = JSON.stringify(json);
+        $.ajax({
+            //type: "POST",
+            url: '@Url.Action("NotificarColaboradores", "Reserva")',
+            contentType: "application/json",
+            data: "colaboradores=" + seleccionados,
+            dataType: "json",
+            success: function () {
+                window.location.href = "/User";
+            },
+            error: function () {
+                window.location.href = "/User";
+            }
+        });
+    }
+</script>

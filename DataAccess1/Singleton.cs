@@ -31,6 +31,7 @@ namespace DataAccess
             this.ID_Sugerencia = 1;
             AddCliente();
             AddSala();
+            AddGruposTrabajo();
         }
 
         public static Singleton GetInstance()
@@ -47,7 +48,7 @@ namespace DataAccess
         public void AddCliente()
         {
             Clientes.Add(new Cliente("1", "Diego", "Rocca", "Av Italia", "1234", "diego@ort.com"));
-            Clientes.Add(new Cliente("2", "Mauricio", "Delbono", "Duvimioso Terra", "1234", "mauri@ort.com"));
+            Clientes.Add(new Cliente("2", "Mauricio", "Delbono", "Duvimioso Terra", "1234", "mauriciodelbonofripp@gmail.com"));
             Clientes.Add(new Cliente("3", "Gerardo", "Quintana", "Cuareim", "1234", "gerardo@ort.com"));
         }
 
@@ -197,6 +198,11 @@ namespace DataAccess
             return null;
         }
 
+        public Reserva GetReservaById(string idReserva)
+        {
+            return Reservas.Where(r => r.ID.Equals(idReserva)).First();
+        }
+
         public bool DeleteReserva(string idCliente, string idSala, DateTime fechaDesde)
         {
             Reserva reserva = Reservas.Where(r => r.Cliente.ID.Equals(idCliente) && r.Sala.ID.Equals(idSala) && r.Desde.Equals(fechaDesde)).FirstOrDefault();
@@ -249,6 +255,14 @@ namespace DataAccess
         #endregion
 
         #region GrupoTrabajo
+        public void AddGruposTrabajo()
+        {
+            var grupoNuevo = new GrupoTrabajo() { ID = "1", Nombre = "Grupo 1", Colaboradores = Clientes};
+            GruposTrabajo.Add(grupoNuevo);
+            Clientes.Where(c => c.ID.Equals("1")).First().GrupoTrabajo = grupoNuevo;
+            Clientes.Where(c => c.ID.Equals("2")).First().GrupoTrabajo = grupoNuevo;
+            Clientes.Where(c => c.ID.Equals("3")).First().GrupoTrabajo = grupoNuevo;
+        }
         public GrupoTrabajo GetGrupoTrabajo(string idGrupo)
         {
             foreach (GrupoTrabajo g in GruposTrabajo)

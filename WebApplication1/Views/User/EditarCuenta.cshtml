@@ -4,150 +4,155 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="form-signin">
-    <div class="form-control">
-        @using (Html.BeginForm("EditarCuenta", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
-        {
-            <center class="loginMargen">
-                <h2>Editar cuenta</h2>
-                <hr />
-                <table style="width:60%">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <center>
-                                    @Html.LabelFor(m => m.ID, new { @class = "form-label" })
-                                    @Html.TextBoxFor(m => m.ID, new { @class = "form-control", disabled="disabled" })
-                                    @Html.ValidationMessageFor(m => m.ID, "", new { @class = "text-danger" })
-                                    <br />
-                                </center>
-                            </td>
-                            <td></td>
-                            <td>
-                                <center>
-                                    @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
-                                    @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
-                                    <br />
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <center>
-                                    @Html.LabelFor(m => m.Apellido, new { @class = "form-label" })
-                                    @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Apellido, "", new { @class = "text-danger" })
-                                    <br />
-                                </center>
-                            </td>
-                            <td></td>
-                            <td>
-                                <center>
-                                    @Html.LabelFor(m => m.Direccion, new { @class = "form-label" })
-                                    @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
-                                    <br />
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <center>
-                                    @Html.LabelFor(m => m.Email, new { @class = "form-label" })
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                                    <br />
-                                </center>
-                            </td>
-                            <td></td>
-                            <td>
-                                <center>
-                                    @Html.Label("Grupo de trabajo", null, new { @class = "form-label" })
-                                    @Html.DropDownList("GrupoTrabajo", ViewBag.Grupos as IEnumerable<SelectListItem>, new { @class = "form-control" })
-                                    <br />
-                                </center>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <center>
-                                    @Html.LabelFor(m => m.Contraseña, new { @class = "form-label" })
-                                    @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
-                                    <br />
-                                </center>
-                            </td>
-                            <td></td>
-                            <td>
-                                <center>
-                                    @Html.Label("Confirmar contraseña", null, new { @class = "form-label" })
-                                    @Html.Password("confirmarContra", null, new { @class = "form-control" })
-                                    <br />
-                                </center>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <hr />
-
-                <div id="accordion" style="width:50%">
-                    <h3>Nueva membresia</h3>
-                    <div>
-                        <center>
-                            @Html.Label("Membresia", null, new { @class = "form-label" })
-                            @Html.DropDownList("Membresia.EsTotal", ViewBag.Membresia as IEnumerable<SelectListItem>, new { @class = "form-control" })
-                            <br />
-                        </center>
-                        <table>
+<div id="divGeneral">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <h2 style="text-align:center">Editar cuenta</h2>
+            <hr />
+        </div>
+    </div>
+    <div class="panel-body">
+        
+                @using (Html.BeginForm("EditarCuenta", "user", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+                {
+                    <center class="loginMargen">
+                        <table style="width:60%">
                             <tbody>
                                 <tr>
                                     <td>
                                         <center>
-                                            @Html.Label("Fecha desde", null, new { @class = "form-label" })
-                                            @Html.TextBox("Membresia.Desde", null, new { @class = "form-control datepicker", placeholder = "Ingresa la fecha..." })
-                                            @Html.ValidationMessage("Membresia.Desde", new { @class = "text-danger" })
+                                            @Html.LabelFor(m => m.ID, new { @class = "form-label" })
+                                            @Html.TextBoxFor(m => m.ID, new { @class = "form-control", disabled = "disabled" })
+                                            @Html.ValidationMessageFor(m => m.ID, "", new { @class = "text-danger" })
                                             <br />
                                         </center>
                                     </td>
                                     <td></td>
                                     <td>
                                         <center>
-                                            @Html.Label("Fecha hasta", null, new { @class = "form-label" })
-                                            @Html.TextBox("Membresia.Hasta", null, new { @class = "form-control datepicker", placeholder = "Ingresa la fecha..." })
-                                            @Html.ValidationMessage("Membresia.Hasta", new { @class = "text-danger" })
+                                            @Html.LabelFor(m => m.Nombre, new { @class = "form-label" })
+                                            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                                            <br />
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @Html.LabelFor(m => m.Apellido, new { @class = "form-label" })
+                                            @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Apellido, "", new { @class = "text-danger" })
+                                            <br />
+                                        </center>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <center>
+                                            @Html.LabelFor(m => m.Direccion, new { @class = "form-label" })
+                                            @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Direccion, "", new { @class = "text-danger" })
+                                            <br />
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                            <br />
+                                        </center>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <center>
+                                            @Html.Label("Grupo de trabajo", null, new { @class = "form-label" })
+                                            @Html.DropDownList("GrupoTrabajo", ViewBag.Grupos as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                            <br />
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <center>
+                                            @Html.LabelFor(m => m.Contraseña, new { @class = "form-label" })
+                                            @Html.PasswordFor(m => m.Contraseña, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Contraseña, "", new { @class = "text-danger" })
+                                            <br />
+                                        </center>
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <center>
+                                            @Html.Label("Confirmar contraseña", null, new { @class = "form-label" })
+                                            @Html.Password("confirmarContra", null, new { @class = "form-control" })
                                             <br />
                                         </center>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                        <hr />
+
+                        <div id="accordion" style="width:50%">
+                            <h3>Nueva membresia</h3>
+                            <div>
+                                <center>
+                                    @Html.Label("Membresia", null, new { @class = "form-label" })
+                                    @Html.DropDownList("Membresia.EsTotal", ViewBag.Membresia as IEnumerable<SelectListItem>, new { @class = "form-control" })
+                                    <br />
+                                </center>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    @Html.Label("Fecha desde", null, new { @class = "form-label" })
+                                                    @Html.TextBox("Membresia.Desde", null, new { @class = "form-control datepicker", placeholder = "Ingresa la fecha..." })
+                                                    @Html.ValidationMessage("Membresia.Desde", new { @class = "text-danger" })
+                                                    <br />
+                                                </center>
+                                            </td>
+                                            <td></td>
+                                            <td>
+                                                <center>
+                                                    @Html.Label("Fecha hasta", null, new { @class = "form-label" })
+                                                    @Html.TextBox("Membresia.Hasta", null, new { @class = "form-control datepicker", placeholder = "Ingresa la fecha..." })
+                                                    @Html.ValidationMessage("Membresia.Hasta", new { @class = "text-danger" })
+                                                    <br />
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <hr />
+                        <input type="submit" value="Modificar" onclick="membresiaHabilitada();" class="btn btn-primary btn-lg btn-block" />
+                    </center>
+
+                    <div id="hidden" style="visibility:hidden">
+
                     </div>
-                </div>
-                    
-
-                    <hr />
-                    <input type="submit" value="Modificar" onclick="membresiaHabilitada();" class="btn btn-primary btn-lg btn-block" />
-</center>
-            
-        <div id="hidden" style="visibility:hidden">
-
+                }
+            </div>
         </div>
-        }
-    </div>
-</div>
 
-<script>
-    $(function () {
-        $("#accordion").accordion({
-            collapsible: true,
-            active: false,
-        });
-        $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
-    });
+        <script>
+            $(function () {
+                $("#accordion").accordion({
+                    collapsible: true,
+                    active: false,
+                });
+                $('.datepicker').datepicker({ dateFormat: 'dd/mm/yy', changeYear: true });
+            });
 
-    function membresiaHabilitada() {
-        if ($('#ui-id-2').attr("aria-hidden") == "false" && $('#Membresia_Desde').val() != "" && $('#Membresia_Hasta').val() != "")
-            $('#hidden').html("<input type='text' name='membresiaOn' value='true' />");
-    }
-</script>
+            function membresiaHabilitada() {
+                if ($('#ui-id-2').attr("aria-hidden") == "false" && $('#Membresia_Desde').val() != "" && $('#Membresia_Hasta').val() != "")
+                    $('#hidden').html("<input type='text' name='membresiaOn' value='true' />");
+            }
+        </script>
