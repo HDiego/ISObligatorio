@@ -20,7 +20,9 @@ namespace Logic
             this.Desde = desde;
             this.Hasta = hasta;
             this.EsTotal = estotal;
-        } 
+        }
+
+        public Membresia() { }
 
         public double CalcularTotal()
         {
